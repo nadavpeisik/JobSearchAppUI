@@ -9,7 +9,7 @@ const JobListing = ({ jobListing, onDelete }) => {
                 {jobListing.jobTitle}{' '}
                 <FaTimes
                     style={{
-                        color: '#df2f2f',
+                        color: '#783048',
                         cursor: 'pointer'
                     }}
                     onClick={() => onDelete(jobListing.link)} />

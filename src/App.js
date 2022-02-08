@@ -64,13 +64,9 @@ const App = () => {
   //   setJobListings(jobListingsFromServer)
   // }
 
-  // const SearchJobListing = (keyword, siteString) => {
-  //   console.log(siteString)
-  // }
-
-
-
-
+  const SearchNewJobs = (keyword, siteString) => {
+    console.log(keyword + " " + siteString)
+  }
 
   
 
