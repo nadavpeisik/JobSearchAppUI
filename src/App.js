@@ -12,10 +12,10 @@ const App = () => {
   //   kw: [keyword, setKeyword] = useState('')
   // }
   const [jobListings, setJobListings] = useState([]) 
-  const [isLinkedIn, setIsLinkedIn] = useState(false)
-  const [isGotFriends, setIsGotFriends] = useState(false)
-  const [isEthosia, setIsEthosia] = useState(false)
-  const [keyword, setKeyword] = useState('')
+  // const [isLinkedIn, setIsLinkedIn] = useState(false)
+  // const [isGotFriends, setIsGotFriends] = useState(false)
+  // const [isEthosia, setIsEthosia] = useState(false)
+  // const [keyword, setKeyword] = useState('')
 
   // const queryInfo = {SearchJobListing.useState.}
   // const kek = () => {
@@ -30,28 +30,28 @@ const App = () => {
   //   getJobListings()
   // }, [])
 
-  useEffect(() => {
-    const getJobListings = async () => {
-      const jobListingsFromServer = await fetchJobListings()
-      setJobListings(jobListingsFromServer)
-    }
-    getJobListings()
-  }, [])
+  // useEffect(() => {
+  //   const getJobListings = async () => {
+  //     const jobListingsFromServer = await fetchJobListings()
+  //     setJobListings(jobListingsFromServer)
+  //   }
+  //   getJobListings()
+  // }, [])
 
   // Fetch job listing from database
-  const fetchJobListings = async() => {
-    const res = await fetch('http://localhost:8080/joblistings')
+  // const fetchJobListings = async() => {
+  //   const res = await fetch('http://localhost:8080/joblistings')
+  //   const data = await res.json()
+
+  //   return data
+  // }
+
+  // Find new job listings from scrapers
+  const SearchNewJobs = async({keyword, sites}) => {
+    const res = await fetch(`http://localhost:8080/joblistings/new/${sites}/${keyword}`)
     const data = await res.json()
 
-    return data
-  }
-
-  // Fetch new job listing from scrapers
-  const fetchNewJobs = async({sites,keyword}) => {
-    const res = await fetch(`http://localhost:8080/joblistings/${sites}/${keyword}`)
-    const data = await res.json()
-
-    return data
+    setJobListings(data)
   }
 
   // Delete Job Listing
@@ -64,9 +64,9 @@ const App = () => {
   //   setJobListings(jobListingsFromServer)
   // }
 
-  const SearchNewJobs = (keyword, siteString) => {
-    console.log(keyword + " " + siteString)
-  }
+  // const SearchNewJobs = (keyword, siteString) => {
+  //   console.log(keyword + " " + siteString)
+  // }
 
   
 
@@ -79,12 +79,7 @@ const App = () => {
   return (
     <div className="container">
       <Header />
-      <SearchJobListing 
-        isLinkedIn={isLinkedIn} setIsLinkedIn={setIsLinkedIn} 
-        isGotFriends={isGotFriends} setIsGotFriends={setIsGotFriends}
-        isEthosia={isEthosia} setIsEthosia={setIsEthosia}
-        keyword={keyword} setKeyword={setKeyword}
-      />
+      <SearchJobListing findNewJobs={SearchNewJobs} />
       
       
       {jobListings.length > 0 ? 

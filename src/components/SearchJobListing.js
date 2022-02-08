@@ -1,13 +1,13 @@
 // import Button from './Button'
-// import { useState } from 'react'
+import { useState } from 'react'
+import PropTypes from 'prop-types'
 
-const SearchJobListing = ({ isLinkedIn, setIsLinkedIn,
-    isGotFriends, setIsGotFriends, isEthosia, setIsEthosia,
-    keyword, setKeyword }) => {
-    // const [isLinkedIn, setIsLinkedIn] = useState(false)
-    // const [isGotFriends, setIsGotFriends] = useState(false)
-    // const [isEthosia, setIsEthosia] = useState(false)
-    // const [keyword, setKeyword] = useState('')
+
+const SearchJobListing = ( {findNewJobs} ) => {
+    const [isLinkedIn, setIsLinkedIn] = useState(false)
+    const [isGotFriends, setIsGotFriends] = useState(false)
+    const [isEthosia, setIsEthosia] = useState(false)
+    const [keyword, setKeyword] = useState('')
     
     const parseSites = (sites=[isLinkedIn, isGotFriends, isEthosia]) => {
         const siteString = ["linkedin", "gotfriends", "ethosia"]
@@ -22,10 +22,10 @@ const SearchJobListing = ({ isLinkedIn, setIsLinkedIn,
             return
         }
 
-        const siteString = parseSites([isLinkedIn, isGotFriends, isEthosia])
-        console.log(siteString)
+        const sites = parseSites([isLinkedIn, isGotFriends, isEthosia])
+        console.log(sites)
 
-        //SearchNewJobs({ keyword, siteString })
+        findNewJobs({ keyword, sites })
 
         setKeyword('')
         setIsLinkedIn(false)
@@ -74,6 +74,10 @@ const SearchJobListing = ({ isLinkedIn, setIsLinkedIn,
         </form >
 
     )
+}
+
+SearchJobListing.propTypes = {
+    findNewJobs: PropTypes.func
 }
 
 export default SearchJobListing
