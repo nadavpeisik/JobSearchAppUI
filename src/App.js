@@ -2,26 +2,21 @@ import { useState, useEffect } from 'react'
 import Header from './components/Header'
 import JobListings from './components/JobListings'
 import SearchJobListing from './components/SearchJobListing'
+import SavedJobListings from './components/SavedJobListings'
+import PropTypes from 'prop-types'
+
 
 
 const App = () => {
-  // const formState = {
-  //   linkedin: [isLinkedIn, setIsLinkedIn] = useState(false),
-  //   gotfriends: [isGotFriends, setIsGotFriends] = useState(false),
-  //   ethosia: [isEthosia, setIsEthosia] = useState(false),
-  //   kw: [keyword, setKeyword] = useState('')
-  // }
+  
+  const [savedJobListings, setSavedJobListings] = useState([])
   const [jobListings, setJobListings] = useState([]) 
+   
   // const [isLinkedIn, setIsLinkedIn] = useState(false)
   // const [isGotFriends, setIsGotFriends] = useState(false)
   // const [isEthosia, setIsEthosia] = useState(false)
   // const [keyword, setKeyword] = useState('')
 
-  // const queryInfo = {SearchJobListing.useState.}
-  // const kek = () => {
-  //   console.log(SearchJobListing.useState.keyword)
-  // }
-
   // useEffect(() => {
   //   const getJobListings = async () => {
   //     const jobListingsFromServer = await fetchJobListings()
@@ -30,21 +25,23 @@ const App = () => {
   //   getJobListings()
   // }, [])
 
-  // useEffect(() => {
-  //   const getJobListings = async () => {
-  //     const jobListingsFromServer = await fetchJobListings()
-  //     setJobListings(jobListingsFromServer)
-  //   }
-  //   getJobListings()
-  // }, [])
+  useEffect(() => {
+    const getSavedJobListings = async () => {
+      const savedJobListingsFromServer = await fetchJobListingsFromDb()
+      setSavedJobListings(savedJobListingsFromServer)
+      console.log(savedJobListingsFromServer)
+      console.log(savedJobListings)
+    }
+    getSavedJobListings()
+  }, [])
 
   // Fetch job listing from database
-  // const fetchJobListings = async() => {
-  //   const res = await fetch('http://localhost:8080/joblistings')
-  //   const data = await res.json()
+  const fetchJobListingsFromDb = async() => {
+    const res = await fetch('http://localhost:8080/joblistings')
+    const data = await res.json()
 
-  //   return data
-  // }
+    return data
+  }
 
   // Find new job listings from scrapers
   const SearchNewJobs = async({keyword, sites}) => {
@@ -54,7 +51,7 @@ const App = () => {
     setJobListings(data)
   }
 
-  // Delete Job Listing
+  // Delete job listing
   const deleteJobListing = async (link) => {
     setJobListings(jobListings.filter((jobListing) => jobListing.link !== link))
   }
@@ -81,10 +78,13 @@ const App = () => {
       <Header />
       <SearchJobListing findNewJobs={SearchNewJobs} />
       
-      
       {jobListings.length > 0 ? 
       (<JobListings jobListings={jobListings} onDelete={deleteJobListing}/>) :
-      ('Nothing to show') }
+      ('') }
+
+      {savedJobListings.length > 0 ? 
+      (<SavedJobListings savedJobListings={savedJobListings} />) :
+      ('DB is empty') } 
 
       
     </div>
@@ -92,4 +92,8 @@ const App = () => {
 }
 
 export default App;
+
+// App.propTypes = {
+//   savedJobListings : PropTypes.array
+// }
 
