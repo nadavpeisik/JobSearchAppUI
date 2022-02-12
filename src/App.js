@@ -96,7 +96,7 @@ const App = () => {
   // }
 
   return (
-    <div className="container">
+    <div className="container" style={{background:'#eff3fb'}}>
       <Header />
       <SearchJobListing findNewJobs={SearchNewJobs} />
       
@@ -104,6 +104,8 @@ const App = () => {
       (<JobListings jobListings={jobListings} onDelete={deleteJobListing}
         onClick={saveJobListing}/>) :
       ('') }
+
+      <br></br>
 
       {savedJobListings.length > 0 ? 
       (<SavedJobListings savedJobListings={savedJobListings} />) :

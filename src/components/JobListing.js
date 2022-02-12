@@ -3,7 +3,7 @@ import Button from './Button'
 
 const JobListing = ({ jobListing, onDelete, onClick }) => {
     return (
-        <div className='joblisting' >
+        <div className='joblisting' style={{background: '#b5c9f1'}}>
             <h3 style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
 
                 {jobListing.jobTitle}{' '}
