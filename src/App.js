@@ -11,6 +11,7 @@ const App = () => {
   
   const [savedJobListings, setSavedJobListings] = useState([])
   const [jobListings, setJobListings] = useState([]) 
+  const [updateSaved, setUpdateSaved] = useState(false)
    
   // const [isLinkedIn, setIsLinkedIn] = useState(false)
   // const [isGotFriends, setIsGotFriends] = useState(false)
@@ -29,11 +30,12 @@ const App = () => {
     const getSavedJobListings = async () => {
       const savedJobListingsFromServer = await fetchJobListingsFromDb()
       setSavedJobListings(savedJobListingsFromServer)
-      console.log(savedJobListingsFromServer)
-      console.log(savedJobListings)
+      // console.log(savedJobListingsFromServer)
+      // console.log(savedJobListings)
     }
     getSavedJobListings()
-  }, [])
+
+  }, [updateSaved])
 
   // Fetch job listing from database
   const fetchJobListingsFromDb = async() => {
@@ -54,6 +56,26 @@ const App = () => {
   // Delete job listing
   const deleteJobListing = async (link) => {
     setJobListings(jobListings.filter((jobListing) => jobListing.link !== link))
+  }
+
+  // // Save job listing
+  // const saveJobListing = async (jobListing) => {
+  //   const res = await fetch('http://localhost:8080/joblistings', 
+  //   {method: 'POST,', headers: {'Content-type' : 'application/json'},
+  //   body: JSON.stringify(jobListing)
+  //   })
+  // }
+
+  const saveJobListing = async (jobListing) => {
+    const res = await fetch('http://localhost:8080/joblistings', {
+      method: 'POST',
+      headers: {
+        'Content-type': 'application/json',
+      },
+      body: JSON.stringify(jobListing),
+    })
+
+    setUpdateSaved(!updateSaved)
   }
   
   // const getJobListings = async () => {
@@ -79,7 +101,8 @@ const App = () => {
       <SearchJobListing findNewJobs={SearchNewJobs} />
       
       {jobListings.length > 0 ? 
-      (<JobListings jobListings={jobListings} onDelete={deleteJobListing}/>) :
+      (<JobListings jobListings={jobListings} onDelete={deleteJobListing}
+        onClick={saveJobListing}/>) :
       ('') }
 
       {savedJobListings.length > 0 ? 

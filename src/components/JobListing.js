@@ -1,7 +1,7 @@
 import { FaTimes } from 'react-icons/fa'
 import Button from './Button'
 
-const JobListing = ({ jobListing, onDelete }) => {
+const JobListing = ({ jobListing, onDelete, onClick }) => {
     return (
         <div className='joblisting' >
             <h3 style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
@@ -19,7 +19,8 @@ const JobListing = ({ jobListing, onDelete }) => {
             <div 
             style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                 <a href={jobListing.link}>{jobListing.siteName}</a>
-                <Button text={'Save'} bgColor={'#2f4a85'} />
+                <Button text={'Save'} bgColor={'#2f4a85'} onClick={onClick}
+                jobListing={jobListing} />
             </div>
 
         </div>
