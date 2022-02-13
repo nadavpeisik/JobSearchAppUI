@@ -53,10 +53,22 @@ const App = () => {
     setJobListings(data)
   }
 
-  // Delete job listing
-  const deleteJobListing = async (link) => {
+  // Delete job listing from scraper results
+  const deleteJobListing = (link) => {
     setJobListings(jobListings.filter((jobListing) => jobListing.link !== link))
+    console.log(jobListings)
   }
+
+  // Delete job listing from saved list (from db)
+  const deleteJobFromDb = async (id) => {
+    const res = await fetch(`http://localhost:8080/${id}`, {
+      method: 'DELETE'
+    })
+
+    // setUpdateSaved(!updateSaved)
+  }
+
+
 
   // // Save job listing
   // const saveJobListing = async (jobListing) => {
@@ -108,7 +120,7 @@ const App = () => {
       <br></br>
 
       {savedJobListings.length > 0 ? 
-      (<SavedJobListings savedJobListings={savedJobListings} />) :
+      (<SavedJobListings savedJobListings={savedJobListings} onDelete={deleteJobFromDb} />) :
       ('DB is empty') } 
 
       
