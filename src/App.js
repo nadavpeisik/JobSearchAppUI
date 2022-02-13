@@ -56,17 +56,21 @@ const App = () => {
   // Delete job listing from scraper results
   const deleteJobListing = (link) => {
     setJobListings(jobListings.filter((jobListing) => jobListing.link !== link))
-    console.log(jobListings)
   }
 
   // Delete job listing from saved list (from db)
-  const deleteJobFromDb = async (id) => {
-    const res = await fetch(`http://localhost:8080/${id}`, {
+  const deleteJobFromDb = async (jobListing) => {
+    console.log(jobListing.id)
+    const res = await fetch(`http://localhost:8080/joblistings/${jobListing.id}`, {
       method: 'DELETE'
     })
 
-    // setUpdateSaved(!updateSaved)
+    setUpdateSaved(!updateSaved)
   }
+
+  // const deleteJobFromDb = (oeh) => {
+  //   console.log("it's working")
+  // }
 
 
 

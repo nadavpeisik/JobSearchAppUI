@@ -4,7 +4,7 @@ const Button = ({ bgColor, text, onClick, jobListing }) => {
     
     return (
         <button 
-            onClick={() => onClick(jobListing)} 
+            onClick={() => onClick(jobListing)}
             style={{background: bgColor} } 
             className='btn'
         >
